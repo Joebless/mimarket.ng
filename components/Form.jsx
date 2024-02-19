@@ -126,7 +126,9 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
           />
           <p>Your Phone Number</p>
           <input
-            type="number"
+            type="tel"
+            minlength="9"
+            maxlength="11"
             placeholder="Type your phone number"
             onChange={handleChange}
             name="phone"

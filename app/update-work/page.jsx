@@ -20,6 +20,7 @@ const UpdateWork = () => {
     title: "",
     description: "",
     price: "",
+    phone: "",
     photos: [],
   });
 
@@ -38,6 +39,7 @@ const UpdateWork = () => {
         title: data.title,
         description: data.description,
         price: data.price,
+        phone: data.phone,
         photos: data.workPhotoPaths,
       });
 

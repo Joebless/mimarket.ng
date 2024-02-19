@@ -60,6 +60,7 @@ export const PATCH = async (req, { params }) => {
     const title = data.get("title");
     const description = data.get("description");
     const price = data.get("price");
+    const phone = data.get("phone");
 
     const photos = data.getAll("workPhotoPaths");
     const workPhotoPaths = await Promise.all(photos.map(handleFileUpload));
@@ -74,6 +75,7 @@ export const PATCH = async (req, { params }) => {
     existingWork.title = title;
     existingWork.description = description;
     existingWork.price = price;
+    existingWork.phone = phone;
     existingWork.workPhotoPaths = workPhotoPaths;
 
     await existingWork.save();

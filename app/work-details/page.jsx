@@ -234,8 +234,11 @@ const WorkDetails = () => {
               />
               <h3>Created by {creator?.username}</h3>
               <br />
-              <span style={{ color: "blue" }}>
-                Call: <span style={{ color: "red" }}>{work.phone}</span>
+              <span style={{ fontWeight: "bold", color: "black" }}>
+                Call:{" "}
+                <span style={{ fontWeight: "bold", color: "darkgreen" }}>
+                  0{work.phone}
+                </span>
               </span>
             </div>
             <hr />
