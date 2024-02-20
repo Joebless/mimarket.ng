@@ -95,6 +95,9 @@ const Navbar = () => {
               <>
                 <Link href="/login">Log In</Link>
                 <Link href="/register">Sign Up</Link>
+                <Link href="/about Us">About Us</Link>
+                <Link href="/buyer">How To Buy</Link>
+                <Link href="/seller">How To Sell</Link>
               </>
             )}
           </div>

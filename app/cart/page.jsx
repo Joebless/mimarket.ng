@@ -62,7 +62,7 @@ const Cart = () => {
 
   const subtotal = calcSubtotal(cart);
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (paymentMethod) => {
     // Check if there are items in the cart
     if (cart.length === 0) {
       toast.error("Your cart is empty. Add items before checkout.");
@@ -75,31 +75,28 @@ const Cart = () => {
       return;
     }
 
-    // Your existing Stripe checkout logic
-    const stripe = await getStripe();
-
-    const response = await fetch("/api/stripe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ cart, userId }),
-    });
-
-    if (response.statusCode === 500) {
-      toast.error("Error generating checkout session.");
-      return;
-    }
-
-    const data = await response.json();
-
-    // Display a loading toast
-    toast.loading("Redirecting to checkout...");
-
-    // Handle different payment methods based on user preference
-    const paymentMethod = "stripe"; // You can replace this with the user's preferred payment method
-
     if (paymentMethod === "stripe") {
+      // Your existing Stripe checkout logic
+      const stripe = await getStripe();
+
+      const response = await fetch("/api/stripe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cart, userId }),
+      });
+
+      if (response.statusCode === 500) {
+        toast.error("Error generating checkout session.");
+        return;
+      }
+
+      const data = await response.json();
+
+      // Display a loading toast
+      toast.loading("Redirecting to checkout...");
+
       // Redirect to Stripe Checkout for online payment
       const result = await stripe.redirectToCheckout({ sessionId: data.id });
 
@@ -116,7 +113,6 @@ const Cart = () => {
     }
   };
 
-  //console.log(cart, 'this is cart')
   return !session?.user?.cart ? (
     <Loader />
   ) : (
@@ -184,7 +180,12 @@ const Cart = () => {
                 <a href="/">
                   <ArrowCircleLeft /> Continue Shopping
                 </a>
-                <button onClick={handleCheckout}>CHECK OUT NOW</button>
+                <button onClick={() => handleCheckout("payondelivery")}>
+                  PAY ON DELIVERY
+                </button>
+                <button onClick={() => handleCheckout("stripe")}>
+                  CHECK OUT NOW
+                </button>
               </div>
             </div>
           )}
